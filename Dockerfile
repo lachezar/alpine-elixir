@@ -1,4 +1,4 @@
-FROM lachezar/alpine-erlang:20.0.4
+FROM lachezar/alpine-erlang:20.1.3
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 
@@ -6,8 +6,8 @@ MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2017-09-14 \
-    ELIXIR_VERSION=v1.5.1
+ENV REFRESHED_AT=2017-11-02 \
+    ELIXIR_VERSION=v1.5.2
 
 WORKDIR /tmp/elixir-build
 
