@@ -1,4 +1,4 @@
-FROM lachezar/alpine-erlang:21.0.4
+FROM lachezar/alpine-erlang:21.2.5
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 
@@ -6,25 +6,25 @@ MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2018-08-10 \
-    ELIXIR_VERSION=v1.7.2
+ENV REFRESHED_AT=2019-02-13 \
+    ELIXIR_VERSION=v1.8.1
 
 WORKDIR /tmp/elixir-build
 
 RUN \
+    apk --no-cache --update upgrade && \
     apk add --no-cache --update --virtual .elixir-build \
       make && \
     apk add --no-cache --update \
       git && \
-    git clone https://github.com/elixir-lang/elixir && \
+    git clone https://github.com/elixir-lang/elixir --depth 1 --branch $ELIXIR_VERSION && \
     cd elixir && \
-    git checkout $ELIXIR_VERSION && \
     make && make install && \
     mix local.hex --force && \
     mix local.rebar --force && \
     cd $HOME && \
     rm -rf /tmp/elixir-build && \
-    apk del .elixir-build
+    apk del --no-cache .elixir-build
 
 WORKDIR ${HOME}
 
